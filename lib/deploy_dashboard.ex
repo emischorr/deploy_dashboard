@@ -21,7 +21,9 @@ defmodule DeployDashboard do
             branches: Git.unmerged_feature_branches(&1),
             commits: Git.commits_not_deployed(&1)
           } ))
-      {:error, :enoent} -> Logger.error("Directory 'services' not found!")
+      {:error, :enoent} ->
+        Logger.error("Directory 'services' not found!")
+        []
     end
   end
 

@@ -1,0 +1,115 @@
+$service_size: 20vw;
+$service_color_warn: #de3300;
+$service_color_ok: #008404;
+$service_color_selected: #005794;
+$service_name_size: 3rem;
+$service_name_lh: 4rem;
+
+html, body, main {
+  height: 100%;
+}
+
+body {
+  background-color: #fafafa;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.services.grid {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.detail-pane {
+  width: 0vw;
+  min-height: 100%;
+  overflow-y: auto;
+  background-color: white;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  transition: width 0.5s;
+
+  &.open {
+    width: 33vw;
+  }
+
+  .content {
+    padding: 20px 10px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .branch-list {
+    padding: 10px;
+    list-style: none;
+    text-align: left;
+    font-size: 1.5rem;
+  }
+}
+
+.service {
+  position: relative;
+  margin: 20px;
+  width: $service_size;
+  height: $service_size;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px #e2e2e2;
+  transition: all 0.5s;
+
+  &.ok {
+    box-shadow: 0px 0px 10px $service_color_ok;
+  }
+  &.warn {
+    box-shadow: 0px 0px 10px $service_color_warn;
+  }
+  &.selected {
+    box-shadow: 0px 0px 10px $service_color_selected;
+  }
+
+  &.extended {
+    border-radius: 10px;
+    height: 100vh;
+
+    .branch-list {
+      display: block;
+    }
+  }
+
+  .info {
+    text-align: center;
+    height: 100%;
+    padding-top: $service_size/2;
+  }
+
+  .name {
+    display: block;
+    width: $service_size;
+    line-height: $service_name_lh;
+    margin-top: -$service_name_lh/2;
+    text-align: center;
+    font-size: $service_name_size;
+    letter-spacing: 0.2rem;
+  }
+
+  .version {
+    color: #afafaf;
+    font-size: 1.7rem;
+    display: block;
+    margin-top: -($service_name_lh*2-1);
+  }
+
+  .branches {
+    display: block;
+    margin-top: $service_name_lh*2-1;
+    font-size: 2rem;
+    font-weight: 400;
+  }
+}
