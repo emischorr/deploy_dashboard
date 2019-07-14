@@ -26,13 +26,13 @@ defmodule DeployDashboard.Git do
   end
 
   def commits_not_deployed(name, tag \\ "latest") do
-    case System.cmd("git", ~w"--git-dir=services/#{name} log --oneline --no-merges master..#{tag}") do
+    case System.cmd("git", ~w"--git-dir=services/#{name} log --oneline --no-merges master..#{tag}", stderr_to_stdout: true) do
       {commits, 0} -> commits
         |> String.split("\n")
         |> Enum.map(&( String.trim(&1) ))
         |> Enum.filter(&( String.length(&1) > 0 ))
-      {"", 128} ->
-        Logger.error("Tag '#{tag}' not found in repo '#{name}'")
+      {error, 128} ->
+        Logger.error("Error while trying to get commits from repo '#{name}': #{error}")
         []
     end
   end

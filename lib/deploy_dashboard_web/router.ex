@@ -17,6 +17,7 @@ defmodule DeployDashboardWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/:service", PageController, :show
   end
 
   # Other scopes may use custom stacks.

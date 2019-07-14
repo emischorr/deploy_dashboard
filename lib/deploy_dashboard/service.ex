@@ -10,6 +10,10 @@ defmodule DeployDashboard.Service do
     {:ok, pid} = GenServer.start_link(__MODULE__, %{name: name}, name: :"Service-#{name}")
   end
 
+  def info(name) do
+    GenServer.call(:"Service-#{name}", :info)
+  end
+
 
   # Callbacks
 
@@ -17,15 +21,24 @@ defmodule DeployDashboard.Service do
   def init(state) do
     IO.puts "Started watching #{state.name}"
     Process.send_after(self(), :update, @update_time)
-    {:ok, state}
+    {:ok, Map.merge(state, %{branches: [], commits: [], version: ""})}
+  end
+
+  @impl
+  def handle_call(:info, _from, state) do
+    {:reply, state, state}
   end
 
   @impl true
   def handle_info(:update, state) do
-
-    Git.update_repo(state.name)
-
     Process.send_after(self(), :update, @update_time)
-    {:noreply, state}
+    {:noreply, update(state)}
+  end
+
+  defp update(state) do
+    Git.update_repo(state.name)
+    state
+    |> Map.put(:branches, Git.unmerged_feature_branches(state.name))
+    |> Map.put(:commits, Git.commits_not_deployed(state.name))
   end
 end

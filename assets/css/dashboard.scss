@@ -21,12 +21,14 @@ body {
 
 .services.grid {
   display: flex;
+  flex: 3;
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow-y: auto;
 }
 
 .detail-pane {
+  flex: 1;
   width: 0vw;
   min-height: 100%;
   overflow-y: auto;
@@ -51,6 +53,7 @@ body {
     list-style: none;
     text-align: left;
     font-size: 1.5rem;
+    line-height: 1.5rem;
   }
 }
 
@@ -83,6 +86,10 @@ body {
     }
   }
 
+  a {
+    color: inherit;
+  }
+
   .info {
     text-align: center;
     height: 100%;
@@ -109,7 +116,9 @@ body {
   .branches {
     display: block;
     margin-top: $service_name_lh*2-1;
-    font-size: 2rem;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 3rem;
     font-weight: 400;
+    color: #3e3e3e;
   }
 }

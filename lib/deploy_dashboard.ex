@@ -11,20 +11,21 @@ defmodule DeployDashboard do
 
   alias DeployDashboard.Git
   alias DeployDashboard.RepoWatcher
+  alias DeployDashboard.Service
 
   def services do
     case File.ls("services") do
       {:ok, services} -> services
         |> Enum.filter(&( File.dir?("services/"<>&1) ))
-        |> Enum.map(&( %{
-            name: &1,
-            branches: Git.unmerged_feature_branches(&1),
-            commits: Git.commits_not_deployed(&1)
-          } ))
+        |> Enum.map(&( Service.info(&1) ))
       {:error, :enoent} ->
         Logger.error("Directory 'services' not found!")
         []
     end
+  end
+
+  def service(name) do
+    Service.info(name)
   end
 
   def add_service(url, name) do

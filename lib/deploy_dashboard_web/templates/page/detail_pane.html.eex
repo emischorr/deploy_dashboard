@@ -1,0 +1,10 @@
+<div class="detail-pane open">
+  <div class="content">
+    <h2><%= @selected_service.name %></h2>
+    <ul class="branch-list">
+      <%= for branch <- @selected_service.branches do %>
+        <li><%= branch %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
