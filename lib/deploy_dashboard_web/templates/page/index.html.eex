@@ -1,28 +1,8 @@
 <div class="dashboard">
 
   <div class="services grid">
-    <div class="service selected">
-      <div class="info">
-        <span class="name">Gateway</span>
-        <span class="version">19.12.3</span>
-        <div class="branches">5</div>
-      </div>
-    </div>
-    <div class="service warn">
-      <div class="info">
-        <span class="name">Product-API</span>
-        <span class="version">19.12.3</span>
-        <div class="branches">8</div>
-      </div>
-    </div>
-    <div class="service">
-      <div class="info">
-        <span class="name">Beus</span>
-        <span class="version">19.12.3</span>
-      </div>
-    </div>
     <%= for service <- @services do %>
-    <div class="service">
+    <div class="service <%= if length(service.commits) > 0, do: 'warn' %>">
       <div class="info">
         <span class="name"><%= service.name %></span>
         <span class="version">19.12.3</span>

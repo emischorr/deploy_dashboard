@@ -1,4 +1,5 @@
 defmodule DeployDashboard.Git do
+  require Logger
 
   def create_repo(url, name) do
     folder_name = name |> String.replace(" ", "_") |> String.trim()
@@ -25,11 +26,15 @@ defmodule DeployDashboard.Git do
   end
 
   def commits_not_deployed(name, tag \\ "latest") do
-    {commits, 0} = System.cmd("git", ~w"--git-dir=services/#{name} log --oneline --no-merges master..#{tag}")
-    commits
-    |> String.split("\n")
-    |> Enum.map(&( String.trim(&1) ))
-    |> Enum.filter(&( String.length(&1) > 0 ))
+    case System.cmd("git", ~w"--git-dir=services/#{name} log --oneline --no-merges master..#{tag}") do
+      {commits, 0} -> commits
+        |> String.split("\n")
+        |> Enum.map(&( String.trim(&1) ))
+        |> Enum.filter(&( String.length(&1) > 0 ))
+      {"", 128} ->
+        Logger.error("Tag '#{tag}' not found in repo '#{name}'")
+        []
+    end
   end
 
 end
