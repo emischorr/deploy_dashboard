@@ -18,6 +18,7 @@ defmodule DeployDashboard do
       {:ok, services} -> services
         |> Enum.filter(&( File.dir?("services/"<>&1) ))
         |> Enum.map(&( Service.info(&1) ))
+        |> Enum.sort(&( &1.name < &2.name ))
       {:error, :enoent} ->
         Logger.error("Directory 'services' not found!")
         []

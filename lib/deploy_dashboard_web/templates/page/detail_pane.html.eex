@@ -1,9 +1,17 @@
 <div class="detail-pane open">
   <div class="content">
     <h2><%= @selected_service.name %></h2>
+    <hr />
+    <h3>Features in work</h3>
     <ul class="branch-list">
       <%= for branch <- @selected_service.branches do %>
         <li><%= branch %></li>
+      <% end %>
+    </ul>
+    <h3>Commits not deployed</h3>
+    <ul class="branch-list">
+      <%= for commit <- @selected_service.commits do %>
+        <li><%= commit %></li>
       <% end %>
     </ul>
   </div>

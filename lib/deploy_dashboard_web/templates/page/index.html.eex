@@ -2,11 +2,11 @@
 
   <div class="services grid">
     <%= for service <- @services do %>
-    <div class="service <%= if length(service.commits) > 0, do: 'warn' %><%= if service.name == @selected_service.name, do: 'selected' %>">
+    <div class="service <%= if length(service.commits) > 0, do: 'warn' %> <%= if service.name == @selected_service.name, do: 'selected' %>">
       <a href="<%= Routes.page_path(@conn, :show, service.name) %>">
         <div class="info">
           <span class="name"><%= service.name %></span>
-          <span class="version">19.12.3</span>
+          <span class="version"><%= semver(service.version) %></span>
           <div class="branches"><%= length(service.branches) %></div>
         </div>
       </a>

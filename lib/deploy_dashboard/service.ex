@@ -3,7 +3,7 @@ defmodule DeployDashboard.Service do
 
   alias DeployDashboard.Git
 
-  @update_time 5000
+  @update_time 10000
 
   # client calls
   def start_link(_children, [name: name]) do
@@ -21,7 +21,7 @@ defmodule DeployDashboard.Service do
   def init(state) do
     IO.puts "Started watching #{state.name}"
     Process.send_after(self(), :update, @update_time)
-    {:ok, Map.merge(state, %{branches: [], commits: [], version: ""})}
+    {:ok, Map.merge( state, %{branches: [], commits: [], version: %{}} )}
   end
 
   @impl
@@ -40,5 +40,6 @@ defmodule DeployDashboard.Service do
     state
     |> Map.put(:branches, Git.unmerged_feature_branches(state.name))
     |> Map.put(:commits, Git.commits_not_deployed(state.name))
+    |> Map.put(:version, Git.latest_tag(state.name))
   end
 end
