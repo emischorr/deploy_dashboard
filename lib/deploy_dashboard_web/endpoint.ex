@@ -1,6 +1,8 @@
 defmodule DeployDashboardWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :deploy_dashboard
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", DeployDashboardWeb.UserSocket,
     websocket: true,
     longpoll: false

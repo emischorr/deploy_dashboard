@@ -8,11 +8,13 @@
         <li><%= branch %></li>
       <% end %>
     </ul>
-    <h3>Commits not deployed</h3>
-    <ul class="branch-list">
-      <%= for commit <- @selected_service.commits do %>
-        <li><%= commit %></li>
-      <% end %>
-    </ul>
+    <%= if length(@selected_service.commits) > 0 do %>
+      <h3>Commits not deployed</h3>
+      <ul class="branch-list">
+        <%= for commit <- @selected_service.commits do %>
+          <li><%= commit %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>

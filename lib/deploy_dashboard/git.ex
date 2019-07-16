@@ -11,7 +11,7 @@ defmodule DeployDashboard.Git do
   end
 
   def update_repo(name) do
-    System.cmd("git", ~w"--git-dir=services/#{name}/.git fetch", stderr_to_stdout: true)
+    System.cmd("git", ~w"--git-dir=services/#{name}/.git fetch --tags --force", stderr_to_stdout: true)
   end
 
   def unmerged_feature_branches(name) do
@@ -43,7 +43,7 @@ defmodule DeployDashboard.Git do
         |> String.split("\n")
         |> Enum.map(&( String.trim(&1) ))
         |> Enum.filter(&( String.length(&1) > 0 ))
-      {error, exit_code} ->
+      {error, _exit_code} ->
         Logger.error("Error while trying to get tags from repo '#{name}': #{error}")
         []
     end
@@ -58,8 +58,8 @@ defmodule DeployDashboard.Git do
         |> Enum.map(&( String.trim(&1, "prod-") ))
         |> Enum.map(&( to_semver(&1) ))
         |> List.last
-      {error, exit_code} ->
-        Logger.error("Error while trying to get latest version from repo '#{name}': #{error}")
+      {error, _exit_code} ->
+        #Logger.error("Error while trying to get latest version from repo '#{name}': #{error}")
         []
     end
   end

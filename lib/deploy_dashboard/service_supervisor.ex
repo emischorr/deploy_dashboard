@@ -2,7 +2,7 @@ defmodule DeployDashboard.ServiceSupervisor do
   use DynamicSupervisor
 
   def start_link(opts) do
-    {:ok, pid} = DynamicSupervisor.start_link(__MODULE__, opts, name: __MODULE__)
+    {:ok, _pid} = DynamicSupervisor.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
   def start_child(name) do

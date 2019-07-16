@@ -8,8 +8,8 @@ defmodule DeployDashboard.RepoWatcher do
   @update_time 5000
 
   # client calls
-  def start_link(args) do
-    {:ok, pid} = GenServer.start_link(__MODULE__, %{}, [name: __MODULE__])
+  def start_link(_args) do
+    {:ok, _pid} = GenServer.start_link(__MODULE__, %{}, [name: __MODULE__])
   end
 
   def add(url, name) do

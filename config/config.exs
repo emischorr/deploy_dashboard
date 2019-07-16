@@ -12,7 +12,10 @@ config :deploy_dashboard, DeployDashboardWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "uE/rt9NHnKMgKlRcDlIc8x4q0pLcCVksINkxlTU4bUI6et+s7XHVPyXCG1kX4RrO",
   render_errors: [view: DeployDashboardWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: DeployDashboard.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: DeployDashboard.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "4eFZIxmKBumxDRzUk/JgknxwCFbGDNT8"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

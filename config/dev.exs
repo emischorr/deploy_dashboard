@@ -52,7 +52,8 @@ config :deploy_dashboard, DeployDashboardWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/deploy_dashboard_web/{live,views}/.*(ex)$",
-      ~r"lib/deploy_dashboard_web/templates/.*(eex)$"
+      ~r"lib/deploy_dashboard_web/templates/.*(eex)$",
+      ~r{lib/my_app_web/live/.*(ex)$}
     ]
   ]
 

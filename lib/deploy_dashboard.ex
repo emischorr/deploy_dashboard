@@ -9,7 +9,6 @@ defmodule DeployDashboard do
 
   require Logger
 
-  alias DeployDashboard.Git
   alias DeployDashboard.RepoWatcher
   alias DeployDashboard.Service
 
