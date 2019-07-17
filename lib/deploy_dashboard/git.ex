@@ -11,7 +11,7 @@ defmodule DeployDashboard.Git do
   end
 
   def update_repo(name) do
-    System.cmd("git", ~w"--git-dir=services/#{name}/.git fetch --tags --force", stderr_to_stdout: true)
+    System.cmd("git", ~w"--git-dir=services/#{name}/.git fetch -p --tags --force", stderr_to_stdout: true)
   end
 
   def unmerged_feature_branches(name) do
@@ -19,6 +19,7 @@ defmodule DeployDashboard.Git do
       {branches, 0} -> branches
         |> String.split("\n")
         |> Enum.map(&( String.trim(&1) ))
+        |> Enum.map(&( String.trim(&1, "origin/") ))
         |> Enum.filter(&( String.contains?(String.downcase(&1), "next") ))
       {result, exit_code} ->
         []
