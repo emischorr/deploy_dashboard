@@ -18,9 +18,9 @@ defmodule DeployDashboardWeb.ServiceLive do
     """
   end
 
-  def mount(%{service_name: name, selected_service: selected_service}, socket) do
+  def mount(%{service_name: name, selected_service_name: selected_service_name}, socket) do
     if connected?(socket), do: :timer.send_interval(1000, self(), :tick)
-    selected = selected_service != nil && name == selected_service.name
+    selected = name == selected_service_name
 
     {:ok, put_service(socket, name, selected)}
   end

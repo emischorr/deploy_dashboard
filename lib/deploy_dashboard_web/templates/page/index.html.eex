@@ -2,10 +2,12 @@
 
   <div class="services grid">
     <%= for service <- @services do %>
-      <%= live_render(@conn, DeployDashboardWeb.ServiceLive, session: %{service_name: service.name, selected_service: @selected_service}) %>
+      <%= live_render(@conn, DeployDashboardWeb.ServiceLive, session: %{service_name: service.name, selected_service_name: @selected_service_name}) %>
     <% end %>
   </div>
 
-  <%= if @selected_service, do: render("detail_pane.html", selected_service: @selected_service) %>
+<div class="detail-pane <%= if @selected_service_name, do: 'open' %>">
+  <%= if @selected_service_name, do: live_render(@conn, DeployDashboardWeb.DetailLive, session: %{service_name: @selected_service_name}) %>
+</div>
 
 </div>

@@ -3,12 +3,11 @@ defmodule DeployDashboardWeb.PageController do
 
   def index(conn, _params) do
     services = DeployDashboard.services
-    render(conn, "index.html", services: services, selected_service: nil)
+    render(conn, "index.html", services: services, selected_service_name: nil)
   end
 
   def show(conn, %{"service" => name}) do
     services = DeployDashboard.services
-    selected_service = DeployDashboard.service(name)
-    render(conn, "index.html", services: services, selected_service: selected_service)
+    render(conn, "index.html", services: services, selected_service_name: name)
   end
 end
