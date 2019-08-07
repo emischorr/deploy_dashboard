@@ -73,8 +73,11 @@ defmodule DeployDashboard.Git do
   end
 
   defp to_semver(string) do
-    [major, minor, patch] = String.split(string, ".")
-    %{major: String.to_integer(major), minor: String.to_integer(minor), patch: String.to_integer(patch)}
+    case String.split(string, ".") do
+      [major, minor, patch] ->
+        %{major: String.to_integer(major), minor: String.to_integer(minor), patch: String.to_integer(patch)}
+      _ -> %{major: 0, minor: 0, patch: 0}
+    end
   end
 
   defp numeric_semver(%{major: major, minor: minor, patch: patch}) do
