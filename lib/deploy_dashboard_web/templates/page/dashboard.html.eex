@@ -1,0 +1,9 @@
+<div class="dashboard full-hd">
+
+  <div class="services grid">
+    <%= for service <- @services do %>
+      <%= live_render(@conn, DeployDashboardWeb.ServiceLive, session: %{service_name: service.name, selected_service_name: nil}) %>
+    <% end %>
+  </div>
+
+</div>

@@ -19,6 +19,7 @@ defmodule DeployDashboardWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/dashboard", PageController, :dashboard
     get "/:service", PageController, :show
   end
 
