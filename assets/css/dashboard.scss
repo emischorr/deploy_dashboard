@@ -1,5 +1,6 @@
 $service_size: 20vw;
 $service_color_warn: #de3300;
+$service_color_notice: #d69110;
 $service_color_ok: #008404;
 $service_color_selected: #005794;
 $service_name_size: 3rem;
@@ -24,6 +25,8 @@ body {
   display: flex;
   flex: 3;
   justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
   flex-wrap: wrap;
   overflow-y: scroll;
   padding: 10px 0;
@@ -69,6 +72,11 @@ body {
     text-align: left;
     font-size: 1.5rem;
     line-height: 1.5rem;
+  }
+
+  .pr {
+    color: $service_color_notice;
+    font-weight: 400;
   }
 }
 

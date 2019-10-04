@@ -2,10 +2,11 @@ defmodule DeployDashboard.Service do
   use GenServer
 
   alias DeployDashboard.Git
+  alias DeployDashboard.Bitbucket
 
   @update_time 10000
 
-  @init_state %{branches: [], commits: [], version: %{}}
+  @init_state %{branches: [], prs: [], commits: [], version: %{}}
 
   # client calls
   def start_link(_children, [name: name]) do
@@ -42,9 +43,11 @@ defmodule DeployDashboard.Service do
   end
 
   defp update(state) do
+    prs = Bitbucket.get_pull_requests(state.name)
     Git.update_repo(state.name)
     state
     |> Map.put(:branches, Git.unmerged_feature_branches(state.name))
+    |> Map.put(:prs, prs)
     |> Map.put(:commits, Git.commits_not_deployed(state.name))
     |> Map.put(:version, Git.latest_tag(state.name))
   end
