@@ -94,11 +94,15 @@ body {
   &.ok {
     box-shadow: 0px 0px 30px $service_color_ok;
   }
+  &.pr {
+    box-shadow: 0px 0px 30px $service_color_notice;
+  }
   &.warn {
     box-shadow: 0px 0px 30px $service_color_warn;
   }
   &.selected {
     box-shadow: 0px 0px 30px $service_color_selected;
+    //border: 2px dashed $service_color_selected;
   }
 
   &.extended {
