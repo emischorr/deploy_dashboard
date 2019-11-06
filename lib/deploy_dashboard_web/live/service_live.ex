@@ -6,7 +6,7 @@ defmodule DeployDashboardWeb.ServiceLive do
 
   def render(assigns) do
     ~L"""
-    <div class="service <%= if length(@service.commits) > 0, do: 'warn' %> <%= if length(@service.prs) > 0, do: 'pr' %> <%= if @selected, do: 'selected' %>">
+    <div class="service <%= if length(@service.commits) > 0, do: 'warn' %> <%= if length(@service.prs) > 0, do: 'pr' %>">
       <a href="<%= Routes.page_path(@socket, :show, @service.name) %>">
         <div class="info">
           <span class="name"><%= @service.name %></span>
