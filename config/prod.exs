@@ -16,6 +16,15 @@ config :deploy_dashboard, DeployDashboardWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# tell logger to load a LoggerFileBackend processes
+config :logger,
+  backends: [{LoggerFileBackend, :info_log}]
+
+# configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :info_log,
+  path: "var/log/info.log",
+  level: :info
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
