@@ -19,7 +19,7 @@ defmodule DeployDashboard.MixProject do
   def application do
     [
       mod: {DeployDashboard.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :logger_file_backend]
     ]
   end
 
@@ -42,7 +42,8 @@ defmodule DeployDashboard.MixProject do
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:httpoison, "~> 1.6"},
       {:poison, "~> 3.1"},
-      {:yaml_elixir, "~> 2.4"}
+      {:yaml_elixir, "~> 2.4"},
+      {:logger_file_backend, "~> 0.0.11"}
     ]
   end
 end
