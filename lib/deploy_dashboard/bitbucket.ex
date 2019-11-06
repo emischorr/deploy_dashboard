@@ -22,7 +22,7 @@ defmodule DeployDashboard.Bitbucket do
       ["Content-Type": "application/json", "Authorization": "Basic #{auth}"],
       [hackney: [:insecure]] # don't check certificates
     )
-    body |> Poison.decode! |> Map.get("values") |> IO.inspect
+    body |> Poison.decode! |> Map.get("values")
     |> Enum.filter(&( String.contains?(String.downcase(&1["title"]), "next") ))
     |> Enum.map(&( Map.take(&1, ["title", "properties", "fromRef"]) ))
     |> Enum.map(&( Map.put(&1, "properties", &1["properties"]["mergeResult"]["outcome"]) )) # just take the outcome value
