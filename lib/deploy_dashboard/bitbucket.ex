@@ -17,17 +17,26 @@ defmodule DeployDashboard.Bitbucket do
   end
 
   defp pull_requests(auth, url) do
-    {:ok, %HTTPoison.Response{body: body}} = HTTPoison.get(
+    case call(auth, url) do
+      {:ok, %HTTPoison.Response{body: body}} ->
+        body |> Poison.decode! |> Map.get("values")
+        |> Enum.filter(&( String.contains?(String.downcase(&1["title"]), "next") ))
+        |> Enum.map(&( Map.take(&1, ["id", "links", "title", "properties", "fromRef"]) ))
+        |> Enum.map(&( Map.put(&1, "properties", &1["properties"]["mergeResult"]["outcome"]) )) # just take the outcome value
+        |> Enum.map(&( Map.put(&1, "fromRef", &1["fromRef"]["displayId"]) )) # just take the displayId value
+        |> Enum.map(&( Map.put(&1, "links", List.first(&1["links"]["self"])["href"]) )) # just take the first href value
+        #|> Enum.map(fn ({k, v}) -> {String.to_atom(k), v} end)
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        []
+    end
+  end
+
+  defp call(auth, url) do
+    HTTPoison.get(
       url,
       ["Content-Type": "application/json", "Authorization": "Basic #{auth}"],
       [hackney: [:insecure]] # don't check certificates
     )
-    body |> Poison.decode! |> Map.get("values")
-    |> Enum.filter(&( String.contains?(String.downcase(&1["title"]), "next") ))
-    |> Enum.map(&( Map.take(&1, ["title", "properties", "fromRef"]) ))
-    |> Enum.map(&( Map.put(&1, "properties", &1["properties"]["mergeResult"]["outcome"]) )) # just take the outcome value
-    |> Enum.map(&( Map.put(&1, "fromRef", &1["fromRef"]["displayId"]) )) # just take the displayId value
-    #|> Enum.map(fn ({k, v}) -> {String.to_atom(k), v} end)
   end
 
 end
