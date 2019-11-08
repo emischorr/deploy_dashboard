@@ -14,7 +14,7 @@ defmodule DeployDashboardWeb.DetailLive do
         <h3>Features in work</h3>
         <ul class="branch-list">
           <%= for branch <- @service.branches do %>
-            <li class="<%= if has_pr?(@service, branch), do: 'pr' %>"><%= branch %></li>
+            <li class="<%= if has_pr?(@service, branch), do: 'pr' %>"><%= raw(branch_entry(@service, branch)) %></li>
           <% end %>
         </ul>
         <%= if length(@service.commits) > 0 do %>
@@ -59,6 +59,14 @@ defmodule DeployDashboardWeb.DetailLive do
     |> Enum.filter(&( &1["fromRef"] == branch ))
     |> Enum.count
     number_of_prs >= 1
+  end
+
+  defp branch_entry(service, branch) do
+    branch_pr = service.prs |> Enum.filter(&( &1["fromRef"] == branch )) |> List.first
+    case branch_pr do
+      %{"links" => href} -> "<a href=\"#{href}\">#{branch}</a>"
+      _ -> branch
+    end
   end
 
 end

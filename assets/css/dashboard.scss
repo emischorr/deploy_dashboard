@@ -77,6 +77,10 @@ body {
   .pr {
     color: $service_color_notice;
     font-weight: 400;
+    a {
+      color: $service_color_notice;
+      font-weight: 400;
+    }
   }
 }
 
