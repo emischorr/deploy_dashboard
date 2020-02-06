@@ -1,3 +1,4 @@
+<%= live_render(@conn, DeployDashboardWeb.BannerLive) %>
 <div class="dashboard full-hd">
 
   <div class="services grid">

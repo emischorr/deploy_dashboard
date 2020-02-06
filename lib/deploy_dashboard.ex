@@ -11,6 +11,7 @@ defmodule DeployDashboard do
 
   alias DeployDashboard.RepoWatcher
   alias DeployDashboard.Service
+  alias DeployDashboard.Dashboard
 
   def services do
     case File.ls("services") do
@@ -30,5 +31,9 @@ defmodule DeployDashboard do
 
   def add_service(url, name) do
     RepoWatcher.add(url, name)
+  end
+
+  def info() do
+    Dashboard.info()
   end
 end

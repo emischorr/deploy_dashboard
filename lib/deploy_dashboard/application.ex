@@ -13,7 +13,8 @@ defmodule DeployDashboard.Application do
       # Starts a worker by calling: DeployDashboard.Worker.start_link(arg)
       # {DeployDashboard.Worker, arg},
       DeployDashboard.ServiceSupervisor,
-      DeployDashboard.RepoWatcher
+      DeployDashboard.RepoWatcher,
+      DeployDashboard.Dashboard
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

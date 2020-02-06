@@ -14,6 +14,23 @@ body {
   background-color: #fafafa;
 }
 
+.warning-banner {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  padding: 20px;
+  background-color: #de876d;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+  z-index: 10;
+
+  a {
+    color: white;
+  }
+}
+
 .dashboard {
   display: flex;
   justify-content: space-between;
@@ -41,6 +58,7 @@ body {
   background-color: white;
   border-left: 1px solid rgba(0, 0, 0, 0.12);
   transition: width 0.5s;
+  z-index: 100;
 
   &.open {
     flex: 1;
